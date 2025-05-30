@@ -16,3 +16,7 @@ A Chrome Extension that scans your LinkedIn feed, analyzes post tone using AI, a
 3. Enable **Developer Mode**
 4. Click **Load unpacked** and select the extension folder
 5. Click on **Extensions > CringedIn > Input Your Gemini API Key**
+
+## Screenshot
+
+![Screenshot](screenshot.jpg)
