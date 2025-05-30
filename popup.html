@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <style>
+    :root {
+      --primary: #6366f1;
+      --primary-dark: #4f46e5;
+      --danger: #ef4444;
+      --success: #10b981;
+      --warning: #f59e0b;
+    }
+    
+    body {
+      width: 340px;
+      padding: 0;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #f8fafc;
+      color: #1e293b;
+      margin: 0;
+    }
+    
+    .header {
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: white;
+      padding: 20px;
+      text-align: center;
+      margin-bottom: 0;
+    }
+    
+    .header h1 {
+      margin: 0;
+      font-size: 18px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+    
+    .header p {
+      margin: 8px 0 0 0;
+      font-size: 13px;
+      opacity: 0.9;
+      font-weight: 400;
+    }
+    
+    .settings-container {
+      padding: 16px;
+    }
+    
+    .setting-group {
+      background: white;
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 16px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+      border: 1px solid #e2e8f0;
+    }
+    
+    .setting-title {
+      font-weight: 600;
+      font-size: 14px;
+      margin-bottom: 12px;
+      color: #334155;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .setting-title svg {
+      width: 16px;
+      height: 16px;
+    }
+    
+    .toggle-container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+    }
+    
+    .toggle-label {
+      font-size: 13px;
+      color: #475569;
+    }
+    
+    .toggle-switch {
+      position: relative;
+      display: inline-block;
+      width: 44px;
+      height: 24px;
+    }
+    
+    .toggle-switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+    
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #cbd5e1;
+      transition: .2s;
+      border-radius: 24px;
+    }
+    
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 18px;
+      width: 18px;
+      left: 3px;
+      bottom: 3px;
+      background-color: white;
+      transition: .2s;
+      border-radius: 50%;
+    }
+    
+    input:checked + .slider {
+      background-color: var(--primary);
+    }
+    
+    input:checked + .slider:before {
+      transform: translateX(20px);
+    }
+    
+    .range-container {
+      margin: 16px 0;
+    }
+    
+    .range-labels {
+      display: flex;
+      justify-content: space-between;
+      font-size: 12px;
+      color: #64748b;
+      margin-top: 4px;
+    }
+    
+    .range-input {
+      width: 100%;
+      height: 8px;
+      -webkit-appearance: none;
+      appearance: none;
+      background: #e2e8f0;
+      border-radius: 4px;
+      outline: none;
+    }
+    
+    .range-input::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: var(--primary);
+      cursor: pointer;
+      border: 2px solid white;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    
+    .select-container {
+      position: relative;
+    }
+    
+    select {
+      width: 100%;
+      padding: 8px 12px;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      background: white;
+      color: #334155;
+      font-size: 13px;
+      appearance: none;
+      background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+      background-repeat: no-repeat;
+      background-position: right 8px center;
+      background-size: 16px;
+    }
+    
+    .input-group {
+      margin-bottom: 12px;
+    }
+    
+    .input-label {
+      display: block;
+      font-size: 13px;
+      color: #475569;
+      margin-bottom: 6px;
+    }
+    
+    input[type="text"],
+    input[type="password"] {
+      width: 90%;
+      padding: 8px 12px;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      font-size: 13px;
+      color: #334155;
+      transition: border-color 0.2s;
+    }
+    
+    input[type="text"]:focus,
+    input[type="password"]:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.1);
+    }
+    
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s;
+      text-decoration: none;
+    }
+    
+    .btn:hover {
+      background: var(--primary-dark);
+      transform: translateY(-1px);
+    }
+    
+    .btn-secondary {
+      background: white;
+      color: #334155;
+      border: 1px solid #e2e8f0;
+    }
+    
+    .btn-secondary:hover {
+      background: #f8fafc;
+      transform: none;
+    }
+    
+    .btn-icon {
+      width: 14px;
+      height: 14px;
+    }
+    
+    .status {
+      font-size: 12px;
+      padding: 8px 16px;
+      border-radius: 8px;
+      margin: 16px;
+      text-align: center;
+      font-weight: 500;
+    }
+    
+    .status.success {
+      background: #ecfdf5;
+      color: var(--success);
+      border: 1px solid #a7f3d0;
+    }
+    
+    .status.warning {
+      background: #fffbeb;
+      color: var(--warning);
+      border: 1px solid #fde68a;
+    }
+    
+    .status.error {
+      background: #fef2f2;
+      color: var(--danger);
+      border: 1px solid #fecaca;
+    }
+    
+    .footer {
+      padding: 12px 16px;
+      border-top: 1px solid #e2e8f0;
+      font-size: 12px;
+      color: #64748b;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>
+      CringedIn
+    </h1>
+    <p>Making LinkedIn bearable since 2025</p>
+  </div>
+  
+  <div class="settings-container">
+    <div class="setting-group">
+      <div class="setting-title">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+          <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+        </svg>
+        Content Filtering
+      </div>
+      
+      <div class="toggle-container">
+        <span class="toggle-label">Hide cringeworthy posts</span>
+        <label class="toggle-switch">
+          <input type="checkbox" id="hideCringe">
+          <span class="slider"></span>
+        </label>
+      </div>
+      
+      <div class="input-group">
+        <label class="input-label">Authenticity threshold</label>
+        <div class="range-container">
+          <input type="range" id="threshold" class="range-input" min="0" max="100" value="30" step="5">
+          <div class="range-labels">
+            <span>More cringe</span>
+            <span id="thresholdValue">30</span>
+            <span>Less cringe</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="setting-group">
+      <div class="setting-title">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+          <path d="M22 6l-10 7L2 6"></path>
+        </svg>
+        Analysis Settings
+      </div>
+      
+      <div class="input-group">
+        <label class="input-label">Analysis style</label>
+        <div class="select-container">
+          <select id="sensitivity">
+            <option value="light">Light Roast ☕</option>
+            <option value="medium">Medium Roast 🔥</option>
+            <option value="nuclear">Nuclear Roast ☢️</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    
+    <div class="setting-group">
+      <div class="setting-title">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+        </svg>
+        API Configuration
+      </div>
+      
+      <div class="input-group">
+        <label class="input-label">Gemini API Key</label>
+        <input type="password" id="apiKey" placeholder="Enter your Gemini API key">
+      </div>
+      
+      <a href="https://aistudio.google.com/apikey" target="_blank" class="btn btn-secondary">
+        <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+        Get API Key
+      </a>
+    </div>
+  </div>
+  
+  <div id="status" class="status success">Ready to detect cringe</div>
+  
+  <div class="footer">
+    <a href="options.html" target="_blank" class="btn btn-secondary" style="width: 100%;">
+      <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="3"></circle>
+        <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+      </svg>
+      Advanced Settings
+    </a>
+  </div>
+  
+  <script src="popup.js"></script>
+</body>
+</html>
